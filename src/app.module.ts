@@ -5,7 +5,9 @@ import { PostsModule } from './posts/posts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as process from 'node:process';
 import { ConfigModule } from '@nestjs/config';
-import { PostsModel } from './posts/entites/posts.entity';
+import { PostsModel } from './posts/entities/posts.entity';
+import { UsersModule } from './users/users.module';
+import { UsersModel } from './users/entities/user.entity';
 
 @Module({
   imports: [
@@ -21,9 +23,10 @@ import { PostsModel } from './posts/entites/posts.entity';
       username: process.env['DB_USERNAME'],
       password: process.env['DB_PASSWORD'],
       database: process.env['DB_NAME'],
-      entities: [PostsModel],
+      entities: [ PostsModel, UsersModel],
       synchronize: true,
     }),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
